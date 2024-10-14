@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      ENVIRONMENT_NAME: Development Environment
+      API_URL: http://localhost:3000
+      BUILD_TIME: ${{ github.event.created_at }}  # Timestamp do evento
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '>=16.7.0'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Display Environment Info
+        run: |
+          echo "Environment: $ENVIRONMENT_NAME"
+          echo "API URL: $API_URL"
+          echo "Build Time: $BUILD_TIME"
+
+      - name: Run Tests
+        run: pnpm run test
+
+      - name: Lint Code
+        run: pnpm run lint
+
+      - name: Deploy to Development Environment
+        run: |
+          echo "Deploying to $ENVIRONMENT_NAME at $BUILD_TIME"
