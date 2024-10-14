@@ -1,11 +1,14 @@
-# .github/workflows/another-dev-workflow.yml
-name: Another Dev Workflow
+# .github/workflows/dev-new-main.yml
+name: Dev New Main Workflow
 
 on:
+  push:
+    branches:
+      - feat/new-branch
   workflow_dispatch:
     inputs:
       dev-env-name:
-        description: 'Another Dev Environment Name'
+        description: 'Dev Environment Name for New Main'
         required: true
       ttl:
         description: Select TTL environment (hours)
@@ -18,18 +21,17 @@ on:
           - 'dev6h'
 
 env:
-  APP_NAME: another-fsd
-  PROJECT_NAME: another-main-dasdad
+  APP_NAME: fsd-new-main
+  PROJECT_NAME: new-main-project
   SH8: ${{ github.sha }}
   STACK_NAME: "${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}"
-  PUBLIC_URL: "https://b${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.another-dev.com/"
-  GITHUB_WORKFLOW: "📦🚀 Create Another Dev Environment ${{ github.event.inputs.dev-env-name }}"
-  DEV_STACK_TTL: "1d"
+  PUBLIC_URL: "https://b${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.new-main-dev.com/"
+  GITHUB_WORKFLOW: "📦🚀 Create Dev Environment for New Main ${{ github.event.inputs.dev-env-name }}"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: another-development  # Referência a um ambiente de desenvolvimento separado
+    environment: development-new-main
 
     steps:
       - name: Checkout code
@@ -49,14 +51,7 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Set up environment variables
+      - name: Deploy to Development Environment
         run: |
-          echo "ENV=another-development" >> $GITHUB_ENV
-          echo "API_URL=http://localhost:3001" >> $GITHUB_ENV
-
-      - name: Deploy to Another Development Environment
-        run: |
-          echo "Deploying to Another Development Environment"
-          echo "Using STACK_NAME: ${{ env.STACK_NAME }}"
-          echo "Public URL: ${{ env.PUBLIC_URL }}"
+          echo "Deploying to Development Environment for New Main"
           # Adicione seu script de deploy aqui
