@@ -1,11 +1,14 @@
-name: Dev main
-
+# .github/workflows/dev-main.yml
+name: Dev Main Workflow
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       dev-env-name:
-        description: 'Dev Environment Name'
+        description: 'Dev Environment Name for Main'
         required: true
       ttl:
         description: Select TTL environment (hours)
@@ -18,18 +21,17 @@ on:
           - 'dev6h'
 
 env:
-  APP_NAME: aaa
-  PROJECT_NAME: main-test
-  SH8: $(echo ${GITHUB_SHA} | cut -c1-8)
-  STACK_NAME:  "${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}"
-  PUBLIC_URL: "https://a${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.dev.com/"
-  GITHUB_WORKFLOW: "📦🚀 Create Dev Environment ${{ github.event.inputs.dev-env-name }}"
-  DEV_STACK_TTL: "1d"
+  APP_NAME: fsd-main
+  PROJECT_NAME: main-project
+  SH8: ${{ github.sha }}
+  STACK_NAME: "${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}"
+  PUBLIC_URL: "https://a${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.main-dev.com/"
+  GITHUB_WORKFLOW: "📦🚀 Create Dev Environment for Main ${{ github.event.inputs.dev-env-name }}"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: development  # Referencia o ambiente de desenvolvimento criado
+    environment: development-main
 
     steps:
       - name: Checkout code
@@ -49,11 +51,7 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Set up environment variables
-        run: |
-          echo "ENV=development" >> $GITHUB_ENV
-          echo "API_URL=http://localhost:3000" >> $GITHUB_ENV
-
       - name: Deploy to Development Environment
         run: |
-          echo "Deploying to Development Environment"
+          echo "Deploying to Development Environment for Main"
+          # Adicione seu script de deploy aqui
