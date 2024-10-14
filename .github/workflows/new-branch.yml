@@ -1,0 +1,20 @@
+---
+name: 📦🚀 [Student] Continuos Deploy
+
+on:
+    push:
+      branches:
+        - main
+        - feat/new-xp
+
+    workflow_dispatch:
+
+jobs:
+    deploy-stg:
+      uses: ./.github/workflows/main.yml
+      with:
+            env_name: staging
+            build_dir: ./build
+            build_command: "pnpm run build"
+            app_name: adas
+            public_url: https://asdasd.io/

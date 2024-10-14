@@ -21,7 +21,7 @@ env:
   PROJECT_NAME: main-dasdad
   SH8: $(echo ${GITHUB_SHA} | cut -c1-8)
   STACK_NAME:  "${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}"
-  PUBLIC_URL: "https://a${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.dev.com/"
+  PUBLIC_URL: "https://a${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.new-dev.com/"
   GITHUB_WORKFLOW: "📦🚀 Create Dev Environment ${{ github.event.inputs.dev-env-name }}"
   DEV_STACK_TTL: "1d"
 

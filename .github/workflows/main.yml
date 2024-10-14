@@ -12,6 +12,7 @@ on:
 
 jobs:
   build:
+    environment: ${{ inputs.env_name }}
     runs-on: ubuntu-latest
 
     steps:
