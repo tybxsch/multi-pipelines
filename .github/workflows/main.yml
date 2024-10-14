@@ -14,12 +14,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@latest  # Usar 'latest' para pegar a versão mais recente
+        uses: actions/checkout@v3  # Specify a specific version
 
       - name: Setup Node.js
-        uses: actions/setup-node@latest  # Usar 'latest' aqui também
+        uses: actions/setup-node@v3  # Specify a specific version
         with:
-          node-version: '16'  # ou a versão que você precisar
+          node-version: '16'  # or the version you need
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -28,4 +28,4 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run build  # ajuste se necessário
+        run: pnpm run build  # adjust if necessary
