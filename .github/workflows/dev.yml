@@ -1,12 +1,29 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      dev-env-name:
+        description: 'Dev Environment Name'
+        required: true
+      ttl:
+        description: Select TTL environment (hours)
+        required: true
+        type: choice
+        default: 'dev1h'
+        options:
+          - 'dev1h'
+          - 'dev3h'
+          - 'dev6h'
+
+env:
+  APP_NAME: aaa
+  PROJECT_NAME: main-test
+  SH8: $(echo ${GITHUB_SHA} | cut -c1-8)
+  STACK_NAME:  "${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}"
+  PUBLIC_URL: "https://a${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.dev.com/"
+  GITHUB_WORKFLOW: "📦🚀 Create Dev Environment ${{ github.event.inputs.dev-env-name }}"
+  DEV_STACK_TTL: "1d"
 
 jobs:
   build:
