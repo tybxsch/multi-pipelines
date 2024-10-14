@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@latest  # Usar 'latest' para pegar a versão mais recente
+
+      - name: Setup Node.js
+        uses: actions/setup-node@latest  # Usar 'latest' aqui também
+        with:
+          node-version: '16'  # ou a versão que você precisar
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build  # ajuste se necessário
