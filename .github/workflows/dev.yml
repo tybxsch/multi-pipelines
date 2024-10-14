@@ -1,10 +1,11 @@
-name: Dev new branch
+# .github/workflows/another-dev-workflow.yml
+name: Another Dev Workflow
 
 on:
   workflow_dispatch:
     inputs:
       dev-env-name:
-        description: 'Dev Environment Name'
+        description: 'Another Dev Environment Name'
         required: true
       ttl:
         description: Select TTL environment (hours)
@@ -17,18 +18,18 @@ on:
           - 'dev6h'
 
 env:
-  APP_NAME: fsd
-  PROJECT_NAME: main-dasdad
-  SH8: $(echo ${GITHUB_SHA} | cut -c1-8)
-  STACK_NAME:  "${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}"
-  PUBLIC_URL: "https://a${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.new-dev.com/"
-  GITHUB_WORKFLOW: "📦🚀 Create Dev Environment ${{ github.event.inputs.dev-env-name }}"
+  APP_NAME: another-fsd
+  PROJECT_NAME: another-main-dasdad
+  SH8: ${{ github.sha }}
+  STACK_NAME: "${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}"
+  PUBLIC_URL: "https://b${{ github.event.inputs.ttl }}-${{ github.event.inputs.dev-env-name }}.another-dev.com/"
+  GITHUB_WORKFLOW: "📦🚀 Create Another Dev Environment ${{ github.event.inputs.dev-env-name }}"
   DEV_STACK_TTL: "1d"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: development  # Referencia o ambiente de desenvolvimento criado
+    environment: another-development  # Referência a um ambiente de desenvolvimento separado
 
     steps:
       - name: Checkout code
@@ -50,9 +51,12 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "ENV=development" >> $GITHUB_ENV
-          echo "API_URL=http://localhost:3000" >> $GITHUB_ENV
+          echo "ENV=another-development" >> $GITHUB_ENV
+          echo "API_URL=http://localhost:3001" >> $GITHUB_ENV
 
-      - name: Deploy to Development Environment
+      - name: Deploy to Another Development Environment
         run: |
-          echo "Deploying to Development Environment"
+          echo "Deploying to Another Development Environment"
+          echo "Using STACK_NAME: ${{ env.STACK_NAME }}"
+          echo "Public URL: ${{ env.PUBLIC_URL }}"
+          # Adicione seu script de deploy aqui
