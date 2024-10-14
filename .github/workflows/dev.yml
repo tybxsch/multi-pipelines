@@ -2,10 +2,7 @@
 name: Dev Main Workflow
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_dispatch:  # Permite executar manualmente
     inputs:
       dev-env-name:
         description: 'Dev Environment Name for Main'
@@ -19,6 +16,9 @@ on:
           - 'dev1h'
           - 'dev3h'
           - 'dev6h'
+  push:
+    branches:
+      - main
 
 env:
   APP_NAME: fsd-main
