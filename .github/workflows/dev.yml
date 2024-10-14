@@ -55,5 +55,3 @@ jobs:
         run: |
           echo "Deploying to Development Environment for Main"
           # Adicione seu script de deploy aqui
-
-          
