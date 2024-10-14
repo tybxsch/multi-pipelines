@@ -2,10 +2,7 @@
 name: Dev New Main Workflow
 
 on:
-  push:
-    branches:
-      - feat/new-branch
-  workflow_dispatch:
+  workflow_dispatch:  # Permite executar manualmente
     inputs:
       dev-env-name:
         description: 'Dev Environment Name for New Main'
@@ -19,6 +16,9 @@ on:
           - 'dev1h'
           - 'dev3h'
           - 'dev6h'
+  push:
+    branches:
+      - feat/new-main
 
 env:
   APP_NAME: fsd-new-main
