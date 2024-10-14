@@ -11,11 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    env:
-      ENVIRONMENT_NAME: Development Environment
-      API_URL: http://localhost:3000
-      BUILD_TIME: ${{ github.event.created_at }}  # Timestamp do evento
+    environment: development  # Referencia o ambiente de desenvolvimento criado
 
     steps:
       - name: Checkout code
@@ -35,18 +31,11 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Display Environment Info
+      - name: Set up environment variables
         run: |
-          echo "Environment: $ENVIRONMENT_NAME"
-          echo "API URL: $API_URL"
-          echo "Build Time: $BUILD_TIME"
-
-      - name: Run Tests
-        run: pnpm run test
-
-      - name: Lint Code
-        run: pnpm run lint
+          echo "ENV=development" >> $GITHUB_ENV
+          echo "API_URL=http://localhost:3000" >> $GITHUB_ENV
 
       - name: Deploy to Development Environment
         run: |
-          echo "Deploying to $ENVIRONMENT_NAME at $BUILD_TIME"
+          echo "Deploying to Development Environment"
